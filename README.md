@@ -78,11 +78,13 @@ Body Parameters
 
 ## Demos
 ### Log In
+![fin-demo-login](https://user-images.githubusercontent.com/23407924/150554363-59622d11-c990-4f6a-ae90-053533c0a92b.gif)
 
-## Create Account
 
-## Retrieve Balance
+### Create Account
 
-## Transfer Funds
+### Retrieve Balance
 
-## Retrieve Transfers History
+### Transfer Funds
+
+### Retrieve Transfers History
