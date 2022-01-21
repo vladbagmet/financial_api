@@ -94,3 +94,4 @@ Body Parameters
 
 
 ### Retrieve Transfers History
+![fin-demo-transfers-history](https://user-images.githubusercontent.com/23407924/150560008-ae83e26a-81e9-48c3-99c4-8891581c67a7.gif)
