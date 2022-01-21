@@ -89,6 +89,8 @@ Body Parameters
 ![fin-demo-retrieve-balance](https://user-images.githubusercontent.com/23407924/150557979-57199e31-d66d-49c6-ad7d-3a861f334c9e.gif)
 
 
-### Transfer Funds
+### Funds Transfers
+![fin-demo-funds-transfers](https://user-images.githubusercontent.com/23407924/150559075-edfe24f5-748d-4aac-85d9-1e54833f90e8.gif)
+
 
 ### Retrieve Transfers History
