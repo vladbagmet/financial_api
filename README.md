@@ -86,6 +86,8 @@ Body Parameters
 
 
 ### Retrieve Balance
+![fin-demo-retrieve-balance](https://user-images.githubusercontent.com/23407924/150557979-57199e31-d66d-49c6-ad7d-3a861f334c9e.gif)
+
 
 ### Transfer Funds
 
