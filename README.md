@@ -82,6 +82,8 @@ Body Parameters
 
 
 ### Create Account
+![fin-demo-account-creation](https://user-images.githubusercontent.com/23407924/150556107-98ccc01b-5c13-4293-9c4b-4ed394a71247.gif)
+
 
 ### Retrieve Balance
 
