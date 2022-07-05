@@ -1,6 +1,8 @@
 from uuid import uuid4
 from decimal import Decimal
 
+from django.db import transaction
+
 from .abstract import AbstractFundsTransfer
 from funds.types import CurrencyEnum
 from funds.models import Account, FundsTransferHistory
@@ -9,6 +11,8 @@ from funds.exceptions import CurrencyTransferNotSupported, SameAccountTransfersP
 
 class InternalSystemFundsTransfer(AbstractFundsTransfer):
     """Specific AbstractFundsTransfer implementation for funds transfers within internal banking system."""
+    # Handling concurrent accounts transfers requests.
+    @transaction.atomic
     def make_transfer(
             self,
             sender_account: Account,
@@ -19,7 +23,6 @@ class InternalSystemFundsTransfer(AbstractFundsTransfer):
         """Making funds transfer from sender to beneficiary funds."""
         self._validate(amount=amount, currency=currency, sender_account=sender_account, beneficiary_account=beneficiary_account)
 
-        # Concurrent transfers requests handling is implemented inside corresponding `withdraw` and `deposit` methods.
         sender_account.withdraw(amount)
         beneficiary_account.deposit(amount)
 
