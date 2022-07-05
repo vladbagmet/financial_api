@@ -5,7 +5,7 @@ __all__ = ['Account', 'FundsTransferHistory']
 import logging
 from decimal import Decimal
 
-from django.db import models, transaction
+from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 
@@ -33,16 +33,12 @@ class Account(AbstractBaseModel):
     def get_queryset(self):
         return self.__class__.objects.filter(uuid=self.uuid)
 
-    # Handling concurrent deposit requests.
-    @transaction.atomic()
     def deposit(self, amount):
         logging.info(f'Depositing {amount} {self.currency} to funds `{self.uuid}`...')
         account = self.get_queryset().select_for_update().get()  # Locking record to perform deposit operation.
         account.balance += amount
         account.save()
 
-    # Handling concurrent withdraw requests.
-    @transaction.atomic()
     def withdraw(self, amount):
         logging.info(f'Withdrawing {amount} {self.currency} from funds `{self.uuid}`...')
         account = self.get_queryset().select_for_update().get()  # Locking record to perform withdraw operation.
