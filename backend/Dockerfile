@@ -5,7 +5,7 @@ FROM python:3.9-alpine3.14
 WORKDIR /backend
 ENV PYTHONPATH=${PYTHONPATH}:/backend
 
-RUN apk add --update --no-cache postgresql-client jpeg-dev
+RUN apk add --update --no-cache postgresql-client
 
 # Install Python dependencies
 COPY requirements.txt /backend
