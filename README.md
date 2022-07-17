@@ -1,7 +1,6 @@
 # Financial API Backend
 Implements backend for managing financial accounts and funds.
 Financial accounts can be created and owned and managed by their owners.
-DISCLAIMER. On the repository there is a file `.env`. It was added to make project local start easier. It should be removed in production.
 
 
 ## Prerequisites
@@ -13,8 +12,9 @@ DISCLAIMER. On the repository there is a file `.env`. It was added to make proje
 Use terminal to run commands below
 * Clone repository by running `git clone https://github.com/vladbagmet/financial_api.git`
 * Go to the cloned repository by running `cd financial_api`
+* Create `.env` file with database credentials or use a template file with default dev credentials by running `cp ./backend/.env.sample ./backend/.env`
 * Run service by executing a shortcut command `make start`
-Service runs inside docker-container and can accept HTTP requests on `http://127.0.0.1:8000` address.
+Service runs inside docker-container and can accept HTTP requests on `http://0.0.0.0:8000/` address.
 
 
 ## Running Tests
