@@ -1,6 +1,10 @@
-# Financial API Backend
-Implements backend for managing financial accounts and funds.
-Financial accounts can be created and owned and managed by their owners.
+# Dummy Financial Organisation API Backend
+Implements backend for managing accounts and funds for dummy financial organisation.
+Financial accounts can be created, owned and managed by their owners.
+The purposes of this application are:
+* to show how to set application fast
+* have JWT authentication implemented
+* have infrastructure for end-to-end API testing.
 
 
 ## Prerequisites

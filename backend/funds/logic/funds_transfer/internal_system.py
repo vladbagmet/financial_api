@@ -11,7 +11,7 @@ from funds.exceptions import CurrencyTransferNotSupported, SameAccountTransfersP
 
 class InternalSystemFundsTransfer(AbstractFundsTransfer):
     """Specific AbstractFundsTransfer implementation for funds transfers within internal banking system."""
-    # Handling concurrent accounts transfers requests.
+    # Adding transaction atomicity to avoid partially-finished transfers between 2 accounts.
     @transaction.atomic
     def make_transfer(
             self,
