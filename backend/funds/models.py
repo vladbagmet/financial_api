@@ -6,6 +6,7 @@ import logging
 from decimal import Decimal
 
 from django.db import models
+from django.db.models import F
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 
@@ -35,17 +36,16 @@ class Account(AbstractBaseModel):
 
     def deposit(self, amount):
         logging.info(f'Depositing {amount} {self.currency} to funds `{self.uuid}`...')
-        account = self.get_queryset().select_for_update().get()  # Locking record to perform deposit operation.
-        account.balance += amount
-        account.save()
+        # Locking db record to handle same account deposit concurrent requests and making db responsible for increment.
+        self.get_queryset().select_for_update().update(balance=F('balance') + amount)
 
     def withdraw(self, amount):
         logging.info(f'Withdrawing {amount} {self.currency} from funds `{self.uuid}`...')
-        account = self.get_queryset().select_for_update().get()  # Locking record to perform withdraw operation.
-        if amount > account.balance:
+        # Locking db record to handle same account withdraw concurrent requests.
+        queryset = self.get_queryset().select_for_update()
+        if amount > queryset.get().balance:
             raise InsufficientFunds('Insufficient funds balance')
-        account.balance -= amount
-        account.save()
+        queryset.update(balance=F('balance') - amount)  # Making db responsible for balance decrement operation.
 
     class Meta:
         unique_together = (('name', 'owner'),)

@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from rest_framework import status
+from django.contrib.auth import get_user_model
 from rest_framework.test import APITestCase, APIClient
 
 from funds.models import Account
@@ -54,11 +54,14 @@ class FundsTransferTest(APITestCase):
                 'beneficiary_account_id': account_without_funds.uuid
             }
         )
+
+        self.assertEqual(account_without_funds.balance, 0)
         funds_transfer_response = self.client.post(
             funds_transfer_api_url,
             {'amount': amount_to_transfer, 'currency': CurrencyEnum.USD},
             HTTP_AUTHORIZATION=self.auth_string
         )
+        account_without_funds.refresh_from_db()
         self.assertEqual(funds_transfer_response.status_code, status.HTTP_200_OK)
         self.assertEqual(funds_transfer_response.data['message'], 'Funds are transferred successfully')
         self.assertIn(
@@ -66,6 +69,7 @@ class FundsTransferTest(APITestCase):
             container=funds_transfer_response.data,
             msg='Successful funds transfer should include `transaction_id` key in the response'
         )
+        self.assertEqual(account_without_funds.balance, amount_to_transfer)
 
     def test_insufficient_funds_exception(self):
         """Testing funds transfer when sender does not have enough funds to make a transfer."""
